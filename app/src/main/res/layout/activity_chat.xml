@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activity.ChatActivity">
+
+    <!--Toolbar-->
+    <include layout="@layout/tool_bar" />
+
+    <!--内容部分layout_behavior:用来控制内容区域-->
+    <RelativeLayout style="@style/ToolbarContent">
+
+<!--        <com.jwenfeng.library.pulltorefresh.PullToRefreshLayout-->
+<!--            android:layout_marginBottom="50dp"-->
+<!--            android:id="@+id/activity_main"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <ScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent">-->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginBottom="50dp"
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+<!--            </ScrollView>-->
+
+<!--        </com.jwenfeng.library.pulltorefresh.PullToRefreshLayout>-->
+
+        <LinearLayout
+            android:id="@+id/bottom_container_ll"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/lly_input_bar"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:background="@drawable/frame_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_voice"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/phone"
+                    android:padding="4dp" />
+
+                <com.example.phoneticsystem.view.AudioRecorderButton
+                    android:id="@+id/id_recorder_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginBottom="7dp"
+                    android:background="@drawable/btn_recorder_normal"
+                    android:gravity="center"
+                    android:minHeight="0dp"
+                    android:padding="5dp"
+                    android:text="@string/str_recorder_normal"
+                    android:textColor="#727272" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

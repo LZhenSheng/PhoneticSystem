@@ -1,9 +1,6 @@
 package com.example.phoneticsystem.activity;
 
-import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
@@ -11,14 +8,13 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
-
 import com.example.phoneticsystem.R;
 import com.example.phoneticsystem.activity.base.BaseActivity;
 import com.example.phoneticsystem.bmob.Account;
 import com.example.phoneticsystem.util.ClickUtil;
 import com.example.phoneticsystem.util.PreferenceUtil;
 import com.example.phoneticsystem.util.ToastUtil;
+import com.google.gson.Gson;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -33,14 +29,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.OnNeverAskAgain;
-import permissions.dispatcher.OnPermissionDenied;
-import permissions.dispatcher.OnShowRationale;
-import permissions.dispatcher.PermissionRequest;
-import permissions.dispatcher.RuntimePermissions;
 
-@RuntimePermissions
 public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.l_account)
@@ -63,20 +52,21 @@ public class LoginActivity extends BaseActivity {
                 public void done(List<Account> list, BmobException e) {
                     if(e==null){
                         if(list!=null){
+                            Gson gson=new Gson();
+                            PreferenceUtil.setAlluser(gson.toJson(list));
                             for(int i=0;i< list.size();i++){
                                 if(list.get(i).getAccount().equals(account)&&list.get(i).getPassword().equals(password)){
                                     PreferenceUtil.setAccount(account);
                                     PreferenceUtil.setPassword(password);
-                                    PreferenceUtil.setStatue(true);
+                                    PreferenceUtil.setLogin(true);
                                     list.get(i).setIp(getIPAddress(LoginActivity.this));
                                     list.get(i).update(new UpdateListener() {
                                         @Override
                                         public void done(BmobException e) {
-
                                         }
                                     });
                                     ToastUtil.successShortToast(R.string.login_success);
-                                    startActivity(ChatActivity.class);
+                                    startActivityAfterFinishThis(MainActivity.class);
                                     break;
                                 }
                                 if(i==list.size()){
@@ -158,112 +148,15 @@ public class LoginActivity extends BaseActivity {
         //隐藏状态栏
         hideStatusBar();
         lightStatusBar(R.color.location_login);
-//        checkAppPermission();
         if(PreferenceUtil.getAccount()!=null){
             l_account.setText(PreferenceUtil.getAccount());
             l_password.setText(PreferenceUtil.getPassword());
         }
     }
 
-    public void checkAppPermission() {
-        //让动态框架检查是否授权了
 
-        //如果不使用框架就使用系统提供的API检查
-        //它内部也是使用系统API检查
-        //只是使用框架就更简单了
-        LoginActivityPermissionsDispatcher.onPermissionGrantedWithPermissionCheck(this);
-    }
 
-    /**
-     * 权限授权了就会调用该方法
-     * 请求相机权限目的是扫描二维码，拍照
-     */
-    @NeedsPermission({
-            Manifest.permission.CAMERA,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
-    })
-    void onPermissionGranted() {
-        //如果有权限就进入下一步
 
-        //如果是在使用的时候请求权限
-        //那这里就可以显示相机预览
-    }
-
-    /**
-     * 显示权限授权对话框
-     * 目的是提示用户
-     *
-     * @param request
-     */
-    @OnShowRationale({
-            Manifest.permission.CAMERA,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
-    })
-    void showRequestPermission(PermissionRequest request) {
-
-        new AlertDialog.Builder(this)
-                .setMessage(R.string.permission_hint)
-                .setPositiveButton(R.string.allow, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        request.proceed();
-                    }
-                })
-                .setNegativeButton(R.string.deny, (dialog, which) -> request.cancel())
-                .show();
-    }
-
-    /**
-     * 拒绝了权限调用
-     */
-    @OnPermissionDenied({
-            Manifest.permission.CAMERA,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
-    })
-    void showDenied() {
-
-        //退出应用
-        finish();
-    }
-
-    /**
-     * 再次获取权限的提示
-     */
-    @OnNeverAskAgain({
-            Manifest.permission.CAMERA,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
-    })
-    void showNeverAsk() {
-
-        //继续请求权限
-        checkAppPermission();
-    }
-
-    /**
-     * 授权后回调
-     *
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        //将授权结果传递到框架
-        LoginActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
-    }
 
 
 }

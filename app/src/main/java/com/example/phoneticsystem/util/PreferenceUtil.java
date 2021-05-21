@@ -28,12 +28,27 @@ public class PreferenceUtil {
     /**
      * 偏好设置文件名称
      */
+    private static final String ALLUSER = "ALLUSER";
+
+    /**
+     * 偏好设置文件名称
+     */
     private static final String USER_ID = "USER_ID";
 
     /**
      * 偏好设置文件名称
      */
+    private static final String LOGIN = "LOGIN";
+
+    /**
+     * 偏好设置文件名称
+     */
     private static final String ACCOUNT = "ACCOUNT";
+
+    /**
+     * 偏好设置文件名称
+     */
+    private static final String SERVICE_IP = "SERVICE_IP";
 
     /**
      * 偏好设置文件名称
@@ -44,6 +59,26 @@ public class PreferenceUtil {
      * 偏好设置文件名称
      */
     private static final String GUIDE = "GUIDE";
+
+    /**
+     * 偏好设置文件名称
+     */
+    private static final String CHAT_ID = "CHAT_ID";
+
+    /**
+     * 偏好设置文件名称
+     */
+    private static final String MESSAGE = "MESSAGE";
+
+    /**
+     * 偏好设置文件名称
+     */
+    private static final String CHAT_IP = "CHAT_IP";
+
+    /**
+     * 偏好设置文件名称
+     */
+    private static final String RESOTRE_ALL_RECORD = "RESOTRE_ALL_RECORD";
 
     /**
      * 上下文
@@ -202,13 +237,91 @@ public class PreferenceUtil {
     /***
      * 设置用户ID
      */
-    public static void setStatue(Boolean data) {
+    public static void setLogin(Boolean data) {
         putBoolean(STATUE,data);
     }
     /**
      * 获取登录状态
      */
-    public static Boolean getStatue() {
+    public static Boolean getLogin() {
         return getBoolean(STATUE);
+    }
+
+    /***
+     * 设置用户ID
+     */
+    public static void setServiceIp(String data) {
+        putString(SERVICE_IP,data);
+    }
+    /**
+     * 获取登录状态
+     */
+    public static String getServiceIp() {
+        return getString(SERVICE_IP);
+    }
+
+    /***
+     * 设置用户ID
+     */
+    public static void setAlluser(String data) {
+        putString(ALLUSER,data);
+    }
+    /**
+     * 获取登录状态
+     */
+    public static String getAlluser() {
+        return getString(ALLUSER);
+    }
+
+    /***
+     * 设置用户ID
+     */
+    public static void setChatId(String data) {
+        putString(CHAT_ID,data);
+    }
+    /**
+     * 获取登录状态
+     */
+    public static String getChatId() {
+        return getString(CHAT_ID);
+    }
+
+    /***
+     * 设置用户ID
+     */
+    public static void setChatIp(String data) {
+        putString(CHAT_IP,data);
+    }
+    /**
+     * 获取登录状态
+     */
+    public static String getChatIp() {
+        return getString(CHAT_IP);
+    }
+
+    /***
+     * 设置用户ID
+     */
+    public static void setResotreAllRecord(String data) {
+        putString(RESOTRE_ALL_RECORD,data);
+    }
+    /**
+     * 获取登录状态
+     */
+    public static String getResotreAllRecord() {
+        return getString(RESOTRE_ALL_RECORD);
+    }
+
+    /***
+     * 设置用户ID
+     */
+    public static void setMessage(String data) {
+        putString(MESSAGE,data);
+    }
+    /**
+     * 获取登录状态
+     */
+    public static String getMessage() {
+        return getString(MESSAGE);
     }
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:padding="5dp"
+    android:id="@+id/click"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:gravity="center_vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_marginRight="20dp"
+        android:id="@+id/id_icon_right"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/icon" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--标题-->
+            <TextView
+                android:textColor="@color/text"
+                android:id="@+id/tv_name"
+                android:text="这是标题"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!--标题-->
+            <TextView
+                android:textColor="@color/text"
+                android:id="@+id/tv_time"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <!--未读消息数-->
+        <TextView
+            android:visibility="gone"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:id="@+id/tv_count"
+            android:background="@drawable/shape_color_primary"
+            android:textSize="@dimen/text_small"
+            android:layout_marginLeft="@dimen/padding_meddle"
+            android:textColor="@color/white"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingRight="@dimen/padding_small"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</LinearLayout>

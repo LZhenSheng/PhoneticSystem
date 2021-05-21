@@ -1,32 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/white"
     tools:context=".activity.ChatActivity">
 
-    <!--Toolbar-->
-    <include layout="@layout/tool_bar" />
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
-    <!--内容部分layout_behavior:用来控制内容区域-->
-    <LinearLayout
-        style="@style/ToolbarContent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
-        <ScrollView
+        <!--指示器-->
+        <!--        <net.lucode.hackware.magicindicator.MagicIndicator-->
+        <!--            android:background="@drawable/shape_border_gray"-->
+        <!--            android:id="@+id/mi"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="?attr/actionBarSize" />-->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:gravity="center">
 
-            <LinearLayout
-                android:gravity="center_horizontal"
-                android:layout_width="match_parent"
+            <View style="@style/MyView" />
+
+            <ImageView
+                android:id="@+id/indicator_iv1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/home_selected" />
+
+            <View
+                style="@style/MyView"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/indicator_iv4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/my" />
+
+            <View style="@style/MyView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_weight="2" />
+            <!--图标-->
+            <ImageView
+                android:id="@+id/iv_count"
+                android:layout_width="@dimen/icon_height_small"
+                android:layout_height="@dimen/icon_height_small"
+                android:layout_marginLeft="@dimen/padding_large"
+                android:layout_marginTop="10dp" />
 
-            </LinearLayout>
-        </ScrollView>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4" />
+        </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

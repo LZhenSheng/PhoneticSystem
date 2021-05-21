@@ -80,4 +80,13 @@ dependencies {
     //封装了RecyclerView
     //提供更高层次的接口
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
+
+    //更方便的日期时间，运算，解析格式化框架
+    implementation 'joda-time:joda-time:2.10.5'
+
+    //圆形图片控件
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    //红点Drawable
+    implementation "com.github.nekocode:Badge:2.1"
 }

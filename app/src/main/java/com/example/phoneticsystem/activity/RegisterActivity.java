@@ -1,28 +1,20 @@
 package com.example.phoneticsystem.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
 import com.example.phoneticsystem.R;
 import com.example.phoneticsystem.activity.base.BaseActivity;
-import com.example.phoneticsystem.activity.base.BaseTitleActivity;
 import com.example.phoneticsystem.bmob.Account;
 import com.example.phoneticsystem.util.ClickUtil;
-import com.example.phoneticsystem.util.LogUtil;
 import com.example.phoneticsystem.util.PreferenceUtil;
 import com.example.phoneticsystem.util.StringUtil;
 import com.example.phoneticsystem.util.ToastUtil;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 
 public class RegisterActivity extends BaseActivity {
@@ -66,25 +58,6 @@ public class RegisterActivity extends BaseActivity {
                                 }
                             }
                         });
-//                        BmobQuery<Account> bmobQuery=new BmobQuery<>();
-//                        bmobQuery.findObjects(new FindListener<Account>() {
-//                            @Override
-//                            public void done(List<Account> list, BmobException e) {
-//                                if(e==null){
-//                                    d("666"+account1+password1);
-//                                    if(list!=null) {
-//                                        for (int i = 0; i < list.size(); i++) {
-//                                            if (list.get(i).getAccount().equals(account1)) {
-//                                                ToastUtil.errorShortToast(R.string.used_iphone);
-//                                                return;
-//                                            }
-//                                        }
-//                                    }
-//                                }else{
-//                                    ToastUtil.errorShortToast("查询失败"+e.toString());
-//                                }
-//                            }
-//                        });
                     }else{
                         ToastUtil.errorShortToast(R.string.confirm_password);
                     }

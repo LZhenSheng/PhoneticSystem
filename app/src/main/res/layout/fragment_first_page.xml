@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activity.LoginActivity">
+
+    <!--Toolbar-->
+    <include layout="@layout/tool_bar" />
+
+    <!--内容部分layout_behavior:用来控制内容区域-->
+    <LinearLayout
+        style="@style/ToolbarContent"
+        android:paddingBottom="20dp">
+
+        <com.jwenfeng.library.pulltorefresh.PullToRefreshLayout
+            android:id="@+id/activity_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--列表控件
+           显示热门搜索
+           搜索历史-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.jwenfeng.library.pulltorefresh.PullToRefreshLayout>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,24 +1,20 @@
-package com.example.phoneticsystem.activity;
+package com.example.phoneticsystem.activity.base;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phoneticsystem.R;
-import com.example.phoneticsystem.activity.base.BaseTitleActivity;
 import com.example.phoneticsystem.adapter.RecorderAdapter;
 import com.example.phoneticsystem.bean.ChatModel;
 import com.example.phoneticsystem.bean.Voice;
 import com.example.phoneticsystem.util.DateUtil;
 import com.example.phoneticsystem.util.PreferenceUtil;
-import com.example.phoneticsystem.util.ToastUtil;
+import com.example.phoneticsystem.util.ThreadUtil;
 import com.example.phoneticsystem.view.AudioRecorderButton;
 import com.example.phoneticsystem.view.MediaManager;
 import com.google.gson.Gson;
@@ -28,13 +24,14 @@ import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-
-public class ChatActivity extends BaseTitleActivity {
+public class Chatactivity extends BaseTitleActivity{
 
     PullToRefreshLayout pullToRefreshLayout;
 
@@ -137,12 +134,12 @@ public class ChatActivity extends BaseTitleActivity {
                 mDatas.add(voice);
                 //更新adapter
                 next();
-                new Thread(new Runnable() {
+                ThreadUtil.getInstance().getGlobalThreadPool().execute(new Runnable() {
                     @Override
                     public void run() {
                         sendVoiceMsg(filePath);
                     }
-                }).start();
+                });
             }
         });
 
@@ -234,22 +231,18 @@ public class ChatActivity extends BaseTitleActivity {
     private void sendVoiceMsg(String path) {
         try {
             Log.d("csl", "sendVoiceMsg");
-//            InetAddress inetAddress = InetAddress.getByName("221.7.210.217");
+            DatagramSocket socket = new DatagramSocket();
 
-            Socket data = new Socket(IP, PORT);
-            Log.d("csl", "connect_result" + data.isConnected());
-            OutputStream outputData = data.getOutputStream();
+
             FileInputStream fileInput = new FileInputStream(path);//获取录制好的音频文件
             int size = -1;
             byte[] buffer = new byte[1024];
-            String str = String.valueOf(1);
-            outputData.write(str.getBytes(), 0, str.getBytes().length);
             while ((size = fileInput.read(buffer, 0, 1024)) != -1) {//发送音频
-                outputData.write(buffer, 0, size);
+                DatagramPacket packet = new DatagramPacket(buffer, size, InetAddress.getByName(IP),PORT);
+                socket.send(packet);
             }
-            outputData.close();
             fileInput.close();
-            data.close();
+            socket.close();
             Log.d("csl", "发送完成");
 
         } catch (Exception e) {
@@ -278,35 +271,4 @@ public class ChatActivity extends BaseTitleActivity {
     }
 
     private static final int RECE_VOICE_MSG = 0X101;
-
-    /**
-     * 创建菜单方法
-     *
-     * 有点类似显示布局要写到onCreate方法一样
-     * @param menu
-     * @return
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0,1,0,"清除聊天记录");
-        menu.add(0,2,0,"删除好友");
-        return true;
-    }
-
-    /**
-     * 菜单点击了回调
-     *
-     * @param item
-     * @return
-     */
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case 1:
-                break;
-            case 2:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

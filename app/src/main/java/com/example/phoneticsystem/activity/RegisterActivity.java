@@ -38,28 +38,14 @@ public class RegisterActivity extends BaseActivity {
         String account1=rAccount.getText().toString();
         String password1=rPassword1.getText().toString();
         String password2=rPassword2.getText().toString();
-        if(account1!=null&&password1!=null){
+        if(account1!=null&&password1!=null&&account1.length()>0&&password1.length()>0){
             if(password2!=null){
                 if(StringUtil.isPhone(account1)){
                     if(password1.equals(password2)){
-                        Account account=new Account();
-                        account.setAccount(account1);
-                        account.setPassword(password1);
-                        account.save(new SaveListener<String>() {
-                            @Override
-                            public void done(String s, BmobException e) {
-                                if(e==null){
-                                    ToastUtil.successShortToast(R.string.register_success);
-                                    PreferenceUtil.setAccount(account1);
-                                    PreferenceUtil.setPassword(password1);
-                                    startActivityAfterFinishThis(LoginActivity.class);
-                                }else{
-                                    ToastUtil.errorShortToast(R.string.register_failure+e.toString());
-                                }
-                            }
-                        });
+                        ToastUtil.successShortToast(R.string.register_success);
+//                        registerAccount(account1,password1);
                     }else{
-                        ToastUtil.errorShortToast(R.string.confirm_password);
+                        ToastUtil.errorShortToast("前后密码不一致");
                     }
                 }else{
                     ToastUtil.errorShortToast(R.string.err_phone_format);
@@ -70,6 +56,25 @@ public class RegisterActivity extends BaseActivity {
         }else{
             ToastUtil.errorShortToast("请补全账号和密码");
         }
+    }
+
+    public void registerAccount(String acc,String password){
+        Account account=new Account();
+        account.setAccount(acc);
+        account.setPassword(password);
+        account.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if(e==null){
+                    ToastUtil.successShortToast(R.string.register_success);
+                    PreferenceUtil.setAccount(acc);
+                    PreferenceUtil.setPassword(password);
+                    startActivityAfterFinishThis(LoginActivity.class);
+                }else{
+                    ToastUtil.errorShortToast(R.string.register_failure+e.toString());
+                }
+            }
+        });
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

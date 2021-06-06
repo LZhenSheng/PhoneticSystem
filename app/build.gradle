@@ -12,12 +12,17 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            testCoverageEnabled true
         }
     }
 
@@ -89,4 +94,9 @@ dependencies {
 
     //红点Drawable
     implementation "com.github.nekocode:Badge:2.1"
+
+    //Android测试依赖
+    androidTestImplementation "androidx.test.ext:junit:1.1.0"
+    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
 }

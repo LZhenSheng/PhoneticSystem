@@ -15,8 +15,8 @@ import com.example.phoneticsystem.R;
 
 /***
  * 自定义按钮 实现录音等功能
- * @author 胜利镇
- * @time 2021/4/13
+ * @author 李振生
+ * @time 2021/5/10
  * @dec
  */
 

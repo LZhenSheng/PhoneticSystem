@@ -37,7 +37,6 @@ public class MessageAdapter extends BaseQuickAdapter<ChatModel, BaseViewHolder> 
         Gson gson = new Gson();
         List<MessageStack> list = gson.fromJson(PreferenceUtil.getMessage(), new TypeToken<List<MessageStack>>() {
         }.getType());
-        helper.setVisible(R.id.tv_count,false);
         if(list!=null){
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getAccount().equals(data.getAccount())&&list.get(i).getMessages().size()>0) {

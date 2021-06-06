@@ -51,7 +51,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        hideStatusBar();
+
         // 发送2s钟的延时消息
         handler.sendMessageDelayed(Message.obtain(),2000);
         new Thread(new Runnable() {
@@ -147,6 +147,13 @@ public class SplashActivity extends BaseActivity {
         super.onDestroy();
         // 销毁消息
         handler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
+
+
     }
 
     // 判断进入主页面还是登录页面

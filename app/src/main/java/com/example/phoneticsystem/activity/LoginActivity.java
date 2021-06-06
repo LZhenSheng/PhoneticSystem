@@ -12,7 +12,9 @@ import com.example.phoneticsystem.R;
 import com.example.phoneticsystem.activity.base.BaseActivity;
 import com.example.phoneticsystem.bmob.Account;
 import com.example.phoneticsystem.util.ClickUtil;
+import com.example.phoneticsystem.util.LogUtil;
 import com.example.phoneticsystem.util.PreferenceUtil;
+import com.example.phoneticsystem.util.StringUtil;
 import com.example.phoneticsystem.util.ToastUtil;
 import com.google.gson.Gson;
 
@@ -45,6 +47,32 @@ public class LoginActivity extends BaseActivity {
         }
         String account=l_account.getText().toString();
         String password=l_password.getText().toString();
+        LogUtil.d("2324234",account+"   "+password+" "+account.length());
+//        if(account!=null&&account.length()>0){
+//
+//            if(password!=null&&password.length()>0){
+//                if(password.length()<6||password.length()>18){
+//                    ToastUtil.errorShortToast("密码格式错误");
+//                    return;
+//                }
+//                for(int i=0;i<password.length();i++){
+//                    char c=password.charAt(i);
+//                    if(c==' '){
+//                        ToastUtil.errorShortToast("密码格式错误");
+//                        return;
+//                    }
+//                }
+//                if(password.equals("121212")){
+//                    ToastUtil.successShortToast("登录成功，正在前往首页");
+//                }else{
+//                    ToastUtil.errorShortToast("账号或密码错误");
+//                }
+//            }else{
+//                ToastUtil.errorShortToast("请补全密码");
+//            }
+//        }else{
+//            ToastUtil.errorShortToast("请补全账号");
+//        }
         if(account!=null&&password!=null){
             BmobQuery<Account> bmobQuery=new BmobQuery<>();
             bmobQuery.findObjects(new FindListener<Account>() {

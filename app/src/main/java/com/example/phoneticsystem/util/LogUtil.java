@@ -25,15 +25,4 @@ public class LogUtil {
             Log.d(tag,value);
         }
     }
-
-    /**
-     * 警告级别日志
-     * @param tag
-     * @param value
-     */
-    public static void w(String tag, String value) {
-        if (isDebug) {
-            Log.w(tag,value);
-        }
-    }
 }
